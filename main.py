@@ -6,8 +6,12 @@ from flask import Flask, render_template
 
 from forms import Persona
 
-app = Flask(__name__)
 
+
+
+app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI']='mysql+pymysql://root:root@127.0.0.1:3307/flaskApi'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=False #para que no de warning 
 
 
 @app.route('/')
