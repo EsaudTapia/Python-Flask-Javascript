@@ -1,23 +1,45 @@
 import json
-
 from flask import jsonify, request
-
 from flask import Flask, render_template
-
-from forms import Persona
-
-
+from forms import Personaform
+from flask_sqlalchemy import SQLAlchemy
+from flask_marshmallow import Marshmallow
 
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI']='mysql+pymysql://root:root@127.0.0.1:3307/flaskApi'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=False #para que no de warning 
+db=SQLAlchemy(app) #sqlalchemy te paso la config de app
+ma=Marshmallow(app)
+
+
+class Persona(db.Model):
+    id= db.Column(db.Integer, primary_key=True)
+    nombre= db.Column(db.String(70), unique=True)
+    apellido = db.Column(db.String(255))
+  
+    
+    def __init__(self,nombre,apellido) :
+        self.nombre=nombre
+        self.apellido=apellido        
+
+db.create_all()
+
+
+class personaSchema(ma.Schema):
+    class Meta:
+        fields=('id','nombre','apellido')
+        
+        
+        
+persona_schema= personaSchema()
+personas_schema= personaSchema(many=True)
 
 
 @app.route('/')
 def index():
- persona = Persona()   
- return render_template('index.html',persona=persona)
+ personaform = Personaform()   
+ return render_template('index.html',personaform=personaform)
 
 
 @app.route('/test', methods=['POST'])
@@ -30,7 +52,12 @@ def test():
     print(type(result))#this shows the json converted as a python dictionary
     
     if result.get('nombre') and result.get('apellido'):
-          mensaje= 'La persona {} {}, se ha Recibido'.format( result.get('nombre'), result.get('apellido'))
+          nombreper=result.get('nombre')
+          apellidoper=result.get('apellido')
+          nueva_persona=Persona(nombreper,apellidoper)
+          db.session.add(nueva_persona)
+          db.session.commit()
+          mensaje= 'La persona {} {}, se ha Recibido y creado'.format( result.get('nombre'), result.get('apellido'))
           
           return jsonify({'mensaje':mensaje})
     

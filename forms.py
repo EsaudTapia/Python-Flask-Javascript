@@ -5,6 +5,6 @@ from wtforms.validators import DataRequired
 from wtforms import validators
 
 
-class Persona(Form):
+class Personaform(Form):
     fname=StringField("Nombre", [DataRequired("Campo vacio *")])
     lname=StringField("Apellido", [DataRequired("Campo vacio *")])

@@ -4,8 +4,8 @@
 {% from '_macros.html' import render_field %}
 
 
-{{ render_field(persona.fname,id='fname',name='Nombre:') }}
-{{ render_field(persona.lname,id='lname',name='Apellido:') }}
+{{ render_field(personaform.fname,id='fname',name='Nombre:') }}
+{{ render_field(personaform.lname,id='lname',name='Apellido:') }}
 <br>
 <button type="submit" onclick='myfunction();'>Enviar informacion</button>
 
