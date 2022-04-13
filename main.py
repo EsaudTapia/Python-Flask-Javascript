@@ -41,6 +41,13 @@ def index():
  personaform = Personaform()   
  return render_template('index.html',personaform=personaform)
 
+@app.route('/listarpersonas')
+def listarpersonas():
+ allPerso=Persona.query.all()
+ result= personas_schema.dump(allPerso)
+ return jsonify(result) 
+   
+
 
 @app.route('/test', methods=['POST'])
 def test():
