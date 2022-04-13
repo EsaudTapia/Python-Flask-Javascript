@@ -4,13 +4,16 @@ from flask import request
 
 from flask import Flask, render_template
 
+from forms import Persona
+
 app = Flask(__name__)
 
 
 
 @app.route('/')
 def index():
- return render_template('index.html')
+ persona = Persona()   
+ return render_template('index.html',persona=persona)
 
 
 @app.route('/test', methods=['POST'])

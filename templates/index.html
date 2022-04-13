@@ -1,16 +1,13 @@
-<html lang="en">
+{% extends "layout.html" %}
+{% block content %}
 
-<head>
-
-    <title>Data Analytics Ireland</title></head>
-<body>
-
-<P>Post some values to a json file</P>
+{% from '_macros.html' import render_field %}
 
 
-<label for="fname">First name:</label> <input type="text" id="fname" name="fname">
-<label for="lname">Last name:</label><input type="text" id="lname" name="lname">
-<button type="submit" onclick='myfunction();'>Click Here to see your data</button>
+{{ render_field(persona.fname,id='fname',name='Nombre:') }}
+{{ render_field(persona.lname,id='lname',name='Apellido:') }}
+<br>
+<button type="submit" onclick='myfunction();'>Enviar informacion</button>
 
 
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
@@ -37,5 +34,6 @@
 
 
 
-</body>
-</html>
+
+
+{% endblock%}
