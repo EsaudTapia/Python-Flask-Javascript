@@ -1,6 +1,6 @@
 import json
 
-from flask import request
+from flask import jsonify, request
 
 from flask import Flask, render_template
 
@@ -24,7 +24,13 @@ def test():
     result = json.loads(output) #this converts the json output to a python dictionary
     print(result) # Printing the new dictionary
     print(type(result))#this shows the json converted as a python dictionary
-    return result
+    
+    if result.get('nombre') and result.get('apellido'):
+          mensaje= 'La persona {} {}, se ha Recibido'.format( result.get('nombre'), result.get('apellido'))
+          
+          return jsonify({'mensaje':mensaje})
+    
+    return jsonify({'error':'no hay informacion'})
 
 
 if __name__=='__main__':
