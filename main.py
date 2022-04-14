@@ -71,5 +71,30 @@ def test():
     return jsonify({'error':'no hay informacion'})
 
 
+
+@app.route('/editar', methods=['POST'])
+def editar():
+    output = request.get_json()
+    print(output) # This is the output that was stored in the JSON within the browser
+    print(type(output))
+    result = json.loads(output) #this converts the json output to a python dictionary
+    print(result) # Printing the new dictionary
+    print(type(result))#this shows the json converted as a python dictionary
+    
+    if result.get('nombre') and result.get('apellido'):
+          id= result.get('id')
+          persona=Persona.query.get(id)    
+          nombreper= result.get('nombre')
+          apellido= result.get('apellido')           
+          persona.nombre= nombreper
+          persona.apellido= apellido             
+          db.session.commit()
+          mensaje= 'La persona con id {}, se ha  editado a {} {}  '.format( result.get('id'),result.get('nombre'), result.get('apellido'))
+          
+          return jsonify({'mensaje':mensaje})
+    
+    return jsonify({'error':'no hay informacion'})
+
+
 if __name__=='__main__':
     app.run(debug=True,port=3000)
