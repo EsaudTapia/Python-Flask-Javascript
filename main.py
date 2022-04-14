@@ -105,15 +105,12 @@ def eliminar():
     print(result) # Printing the new dictionary
     print(type(result))#this shows the json converted as a python dictionary
     
-    if result.get('nombre') and result.get('apellido'):
+    if result.get('id'):
           id= result.get('id')
-          persona=Persona.query.get(id)    
-          nombreper= result.get('nombre')
-          apellido= result.get('apellido')           
-          persona.nombre= nombreper
-          persona.apellido= apellido             
+          persona=Persona.query.get(id)
+          db.session.delete(persona)
           db.session.commit()
-          mensaje= 'La persona con id {}, se ha  editado a {} {}  '.format( result.get('id'),result.get('nombre'), result.get('apellido'))
+          mensaje= 'La persona con id {}, se ha  eliminado '.format( result.get('id'))
           
           return jsonify({'mensaje':mensaje})
     
