@@ -93,7 +93,7 @@ def editar():
           
           return jsonify({'mensaje':mensaje})
     
-    return jsonify({'error':'no hay informacion'})
+    return jsonify({'error':'no hay informacion'})  
 
 
 @app.route('/eliminar', methods=['POST'])
