@@ -132,6 +132,8 @@
             }
             else {
                  alert(data.mensaje)
+                 $("#fname").val(null);
+                 $("#lname").val(null);
                  listarpersona();
             }
         });
@@ -174,7 +176,9 @@ function guardarEdit(){
              alert(data.mensaje)
              listarpersona();
              $('#btnEditar').hide();
-            $('#btnInsertar').show(); 
+             $('#btnInsertar').show(); 
+             $("#fname").val(null);
+             $("#lname").val(null);
         }
     });
 
