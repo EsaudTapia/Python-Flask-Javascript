@@ -187,6 +187,34 @@ function guardarEdit(){
 }
 
 
+function deletePersona(pos){
+
+    const values={
+        'id':pos,        
+    }
+
+    const data = JSON.stringify(values);
+    window.alert(data)
+    $.ajax({
+        url:"/eliminar",
+        type:"POST",
+        contentType: "application/json",
+        data: JSON.stringify(data)
+    })
+    .done(function(data) {
+        if (data.error) {
+           alert(data.error)
+        }
+        else {
+             alert(data.mensaje)
+             listarpersona();           
+        }
+    });
+
+
+}
+
+
 </script>
 
 
